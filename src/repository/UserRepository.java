@@ -53,7 +53,7 @@ public class UserRepository {
                         PropertiesLoader.properties.getProperty("database_username"),
                         PropertiesLoader.properties.getProperty("database_password")
                 );
-                Statement statement = connection.createStatement();
+//                Statement statement = connection.createStatement();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ){
             preparedStatement.setInt(1,id);
@@ -79,4 +79,95 @@ public class UserRepository {
         }
         return null;
     }
+    public static void createUser(User user){
+        String sql = """
+                    INSERT INTO users (user_name,user_password,is_deleted,user_email,user_uuid,is_verified)
+                    VALUES (?,?,?,?,?,?)
+        """;
+        PropertiesLoader.loaderProperties();
+        try(
+                Connection connection = DriverManager.getConnection(
+                        PropertiesLoader.properties.getProperty("database_url"),
+                        PropertiesLoader.properties.getProperty("database_username"),
+                        PropertiesLoader.properties.getProperty("database_password")
+
+                );
+                Statement statement = connection.createStatement();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+
+        ) {
+          preparedStatement.setString(1, user.getUser_name());
+          preparedStatement.setString(2,user.getUser_password());
+          preparedStatement.setBoolean(3,user.getIs_deleted());
+                  preparedStatement.setString(4,user.getUser_email());
+                  preparedStatement.setString(5, user.getUser_uuid());
+            preparedStatement.setBoolean(6,user.getIs_verified());
+
+
+            int affectedRTow = preparedStatement.executeUpdate();
+            if (affectedRTow>0){
+                System.out.println("Created !!!!!!!");
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+//
+//        return null;
+    }
+    public static User deleteUser(User user){
+        String sql = "DELETE  FROM users WHERE user_id =?" ;
+        PropertiesLoader.loaderProperties();
+        try (
+                Connection connection = DriverManager.getConnection(
+                        PropertiesLoader.properties.getProperty("database_url"),
+                        PropertiesLoader.properties.getProperty("database_username"),
+                        PropertiesLoader.properties.getProperty("database_password")
+                );
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+                ){
+            preparedStatement.setInt(1,user.getUser_id());
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0 ){
+                System.out.println("User deleted successfully");
+            } else {
+                System.out.println("User not found in database");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+    public static User updateUser(User user){
+        String sql = "UPDATE users SET user_name = ?, user_email = ?," +
+                " is_deleted = ?, user_password = ?, is_verified = ?, user_uuid = ? WHERE user_id = ?";
+        try(
+                Connection connection = DriverManager.getConnection(
+                        PropertiesLoader.properties.getProperty("database_url"),
+                        PropertiesLoader.properties.getProperty("database_username"),
+                        PropertiesLoader.properties.getProperty("database_password")
+                );
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+                ){
+            preparedStatement.setString(1, user.getUser_name());
+            preparedStatement.setString(2,user.getUser_password());
+            preparedStatement.setBoolean(3,user.getIs_deleted());
+            preparedStatement.setString(4,user.getUser_email());
+            preparedStatement.setString(5, user.getUser_uuid());
+            preparedStatement.setBoolean(6,user.getIs_verified());
+
+            int affectedRTow = preparedStatement.executeUpdate();
+            if (affectedRTow>0){
+                System.out.println(" User was Updated  !!!!!!!");
+            }
+
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }

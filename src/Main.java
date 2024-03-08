@@ -1,38 +1,50 @@
 import controller.UserController;
-import view.view;
+import view.View;
 
-import java.util.Scanner;
-
-import static view.view.readAllUser;
-import static view.view.searchUI;
+import static view.View.*;
 
 
 public class Main {
     private final static UserController userController  = new UserController();
     public static void main(String[] args) {
 
-       while(true){
-           switch (view.ui()){
-               //read
-               case 1->{
-                   readAllUser();
-               }
-               // search
-               case 2 -> {
-                   searchUI();
+      while (true) {
+          try {
+          switch (View.ui()) {
+              //read
+              case 1 -> {
+                  readAllUser();
+              }
+              // search
+              case 2 -> {
+                  searchUI();
+              }
+              // create
+              case 3 -> {
+                  userController.createUser();
+                  System.out.println("Create User is successfully!!!");
+                  System.out.println("=".repeat(90));
+              }
+              // Update
+              case 4 -> {
 
-               }
-               // create
-               case 3-> {
 
-               }
-               // Update
-               case 4 -> {
 
-               }
-               default -> System.out.println("No option please Choose again!!!");
 
-           }
-       }
+              }
+              // Delete user
+              case 5 -> {
+                    userController.deleteUser();
+
+              }
+              default -> System.out.println("No option please Choose again!!!");
+
+          }
+          }catch (Exception e){
+              System.out.println(e.getMessage());
+          }
+      }
+
     }
+
 }

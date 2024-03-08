@@ -6,13 +6,10 @@ import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
-import repository.UserRepository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class view {
+public class View {
     private final  static UserController userController  = new UserController();
     public static int ui() {
 
@@ -33,9 +30,9 @@ public class view {
         System.out.println("==================  Menu ==============================");
         menu.addCell("     1.Read Data         ");
         menu.addCell(" 2.Search User BY Id     ");
-        menu.addCell("     2.Create            ");
-        menu.addCell("     3.Update            ");
-        menu.addCell("     4.Delete            ");
+        menu.addCell("     3.Create            ");
+        menu.addCell("     4.Update            ");
+        menu.addCell("     5.Delete            ");
         System.out.println(menu.render());
 
         System.out.println("====== Choose your Option: ");
@@ -102,6 +99,51 @@ public class view {
         }
 
     }
+    // Create user
+
+        public  User CreateUser(){
+            Scanner scanner = new Scanner(System.in);
+
+            User createNewUser = new User();
+            Random random = new Random();
+            UUID uuid = UUID.randomUUID();
+            String createNewUUID = uuid.toString().substring(0,9);
+
+            try{
+
+                System.out.println("Enter Username : ");
+                createNewUser.setUser_name(scanner.nextLine());
+                System.out.println("Enter User Email: ");
+                createNewUser.setUser_email(scanner.nextLine());
+                System.out.println("Enter User Password : ");
+                createNewUser.setUser_password(scanner.nextLine());
+                System.out.println("Enter Verify (Ture/False):");
+                createNewUser.setIs_verified(Boolean.parseBoolean(scanner.nextLine()));
+
+                createNewUser.setIs_deleted(false);
+                createNewUser.setUser_uuid(createNewUUID);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            return createNewUser;
+        }
+
+        // Delete User
+        public User deleteUser(List<User> users){
+            System.out.print("Enter id to delete: ");
+            int id = Integer.parseInt(new Scanner(System.in).nextLine());
+            for (User user : users) {
+                if(user.getUser_id().equals(id)){
+                    users.remove(user);
+                    return users.getFirst();
+                }
+            }
+          return null;
+
+        }
+
+
 
 
 
