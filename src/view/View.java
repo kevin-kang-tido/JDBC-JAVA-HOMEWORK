@@ -142,6 +142,31 @@ public class View {
           return null;
 
         }
+        public static int updateUser(List<User> userList){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please Input User Id you want to delete: ");
+            int inputId = Integer.parseInt(new Scanner(System.in).nextLine());
+            for (User user : userList){
+                if ( user.getUser_id().equals(inputId)){
+                    System.out.println("Enter Username : ");
+                    user.setUser_name(scanner.nextLine());
+                    System.out.println("Enter User Email: ");
+                    user.setUser_email(scanner.nextLine());
+                    System.out.println("Enter User Password : ");
+                    user.setUser_password(scanner.nextLine());
+                    System.out.println("Enter Verify (Ture/False):");
+                    user.setIs_verified(Boolean.parseBoolean(scanner.nextLine()));
+
+                    user.setIs_deleted(false);
+
+                }
+                return inputId;
+            }
+        return -1;
+        }
+
+
+
 
 
 

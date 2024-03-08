@@ -35,4 +35,19 @@ public class UserController {
             User user = userView.deleteUser(users);
             userDao.deleteUser(user);
     }
+    public void updateUser(){
+        int id = View.updateUser(users);
+        if (id != -1) {
+            for (User user : users) {
+                if (user.getUser_id().equals(id)) {
+                    userDao.UpdateUser(user);
+                    System.out.println("User with ID " + id + " updated successfully.");
+                    break;
+                }
+            }
+        } else {
+            System.out.println("User not found or updated.");
+        }
+    }
+
 }

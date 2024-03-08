@@ -12,18 +12,21 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public User searchUserById(Integer id) {
-         return UserRepository.searchUserById(id);
+
+
+        return UserRepository.searchUserById(id);
     }
 
     @Override
     public User deleteUser(User user) {
+
         return UserRepository.deleteUser(user);
     }
 
     @Override
     public User UpdateUser(User user) {
 
-        return null;
+        return UserRepository.updateUser(user);
     }
 
 

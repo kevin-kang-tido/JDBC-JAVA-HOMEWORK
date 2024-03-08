@@ -25,17 +25,13 @@ public class Main {
                   System.out.println("Create User is successfully!!!");
                   System.out.println("=".repeat(90));
               }
-              // Update
+              // Update by id
               case 4 -> {
-
-
-
-
+                  userController.updateUser();
               }
               // Delete user
               case 5 -> {
                     userController.deleteUser();
-
               }
               default -> System.out.println("No option please Choose again!!!");
 
