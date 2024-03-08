@@ -1,3 +1,7 @@
+# for ignoring the application.properties
+application.properties
+
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/

@@ -22,8 +22,6 @@ public class Main {
               // create
               case 3 -> {
                   userController.createUser();
-                  System.out.println("Create User is successfully!!!");
-                  System.out.println("=".repeat(90));
               }
               // Update by id
               case 4 -> {

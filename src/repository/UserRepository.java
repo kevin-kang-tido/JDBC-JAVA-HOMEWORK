@@ -108,7 +108,8 @@ public class UserRepository {
 
             int affectedRTow = preparedStatement.executeUpdate();
             if (affectedRTow>0){
-                System.out.println("Created !!!!!!!");
+                System.out.println("Create User is successfully!!!");
+                System.out.println("=".repeat(90));
             }
 
         }catch (Exception e){
@@ -148,7 +149,6 @@ public class UserRepository {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return null;
     }
     public static User updateUser(User user) {
